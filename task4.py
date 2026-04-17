@@ -58,7 +58,14 @@ def notes_taker(content: str) -> str:
     """
 
     result = llm.invoke(prompt)
-    return result.content
+    # Generate filename using timestamp
+    filename = f"notes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+
+    # Save to file
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(notes)
+
+    return f"Notes saved successfully as {filename}\n\n{notes}"
 
 
 # -------------------- AGENT --------------------
